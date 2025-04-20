@@ -5,7 +5,7 @@ from PIL import Image
 import os
 
 # Path model di dalam folder repository GitHub
-MODEL_PATH = "model/MobileNetV2_9379.h5"
+MODEL_PATH = "model/MobileNetV2_9150.h5"
 
 # Cache model agar tidak dimuat ulang terus-menerus
 @st.cache_resource
