@@ -1,40 +1,46 @@
 import streamlit as st
-import tensorflow as tf
-from PIL import Image
 import numpy as np
+from tensorflow.keras.models import load_model
+from PIL import Image
 import os
 
-# Load model
-@st.cache_resource
-def load_model():
-    model = tf.keras.models.load_model("model/MobileNetV2_9150.h5")
-    return model
+# Path model di dalam folder repository GitHub
+MODEL_PATH = "model/MobileNetV2_9379.h5"
 
-model = load_model()
+# Cache model agar tidak dimuat ulang terus-menerus
+@st.cache_resource
+def load_trained_model():
+    return load_model(MODEL_PATH)
+
+model = load_trained_model()
 
 # Label ras kucing
-class_names = ['American Shorthair', 'Bengal', 'Birman', 'Bombay', 
-               'British Shorthair', 'Egyptian Mau', 'Maine Coon', 
-               'Persian', 'Ragdoll', 'Russian Blue', 'Siamese', 
-               'Sphynx', 'Turkish Angora']
+CLASS_NAMES = ['American Shorthair', 'Bengal', 'Bombay', 'British Shorthair',
+               'Himalayan', 'Maine Coon', 'Manx', 'Persian', 'Ragdoll',
+               'Russian Blue', 'Scottish Fold', 'Siamese', 'Sphynx']
 
-# Judul Aplikasi
+# UI Streamlit
 st.title("Klasifikasi Ras Kucing 🐱")
+st.write("Unggah gambar kucing untuk mengetahui rasnya.")
 
 # Upload gambar
-uploaded_file = st.file_uploader("Upload gambar kucing...", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("Pilih gambar kucing...", type=["jpg", "jpeg", "png", "webp"])
 
-if uploaded_file is not None:
-    image = Image.open(uploaded_file).convert('RGB')
-    st.image(image, caption='Gambar yang diupload', use_column_width=True)
+if uploaded_file:
+    # Tampilkan gambar yang diunggah
+    image = Image.open(uploaded_file)
+    st.image(image, caption="Gambar yang diunggah", use_container_width=True)
 
     # Preprocessing
-    img = image.resize((224, 224))  # Sesuaikan dengan input model
-    img_array = np.array(img) / 255.0
-    img_array = np.expand_dims(img_array, axis=0)
+    img = image.resize((224, 224))  # Ukuran sesuai model
+    img_array = np.expand_dims(np.array(img) / 255.0, axis=0)
 
     # Prediksi
-    prediction = model.predict(img_array)
-    predicted_class = class_names[np.argmax(prediction)]
+    predictions = model.predict(img_array)
+    predicted_class = CLASS_NAMES[np.argmax(predictions)]
+    confidence = np.max(predictions)
 
-    st.markdown(f"### Prediksi: **{predicted_class}**")
+    # Output hasil prediksi
+    st.subheader("Hasil Prediksi")
+    st.write(f"**Ras Kucing**: {predicted_class}")
+    st.write(f"**Kepercayaan**: {confidence:.2%}")
