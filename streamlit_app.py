@@ -35,7 +35,7 @@ st.set_page_config(
 st.markdown(
     """
     <div style="text-align: center;">
-        <img src="https://raw.githubusercontent.com/USERNAME/REPO/main/path/logo.png" alt="Logo" width="200"/>
+        <img src="Logo web.pn" alt="Logo" width="200"/>
     </div>
     """,
     unsafe_allow_html=True
