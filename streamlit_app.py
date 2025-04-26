@@ -6,10 +6,11 @@ from PIL import Image
 # ==== Basic Setup ====
 st.set_page_config(
     page_title="Klasifikasi Ras Kucing",
-    page_icon="🐱",
+    page_icon=Image.open("Logo/logo web HD.png"),
     layout="centered",
     initial_sidebar_state="auto"
 )
+
 
 # ==== CSS Styling Adaptif ====
 st.markdown(
