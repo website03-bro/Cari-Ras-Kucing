@@ -2,9 +2,8 @@ import streamlit as st
 import numpy as np
 from tensorflow.keras.models import load_model
 from PIL import Image
-import streamlit.components.v1 as components  # untuk HTML injection
 
-# ==== SETTING: Wajib light theme ====
+# ==== Basic Setup ====
 st.set_page_config(
     page_title="Klasifikasi Ras Kucing",
     page_icon="🐱",
@@ -12,17 +11,13 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
-# ==== CSS Styling ====
+# ==== CSS Styling Adaptif ====
 st.markdown(
     """
     <style>
-    /* Paksa semua background jadi putih dan teks jadi hitam */
     body {
-        background-color: #ffffff !important;
-        color: #000000 !important;
-    }
-    header, footer, .stSidebar {
-        background-color: #ffffff !important;
+        background-color: var(--background-color);
+        color: var(--text-color);
     }
     .stButton>button {
         background-color: #f4a300;
@@ -38,47 +33,29 @@ st.markdown(
         transform: scale(1.05);
     }
     .stFileUploader {
-        background-color: #fff6e5;
+        background-color: var(--secondary-background-color);
         padding: 1em;
         border-radius: 10px;
     }
     hr {
         border: 1px solid #f4a300;
     }
-    /* Logo Styling */
     .logo-container {
         display: flex;
         justify-content: center;
         align-items: center;
         margin-top: 20px;
-        opacity: 0;
-        transform: translateY(-30px);
-        transition: all 1s ease;
-    }
-    .logo-container.visible {
-        opacity: 1;
-        transform: translateY(0);
     }
     img {
         pointer-events: none;
         user-select: none;
     }
     </style>
-
-    <script>
-    window.addEventListener('scroll', function() {
-        var logo = document.querySelector('.logo-container');
-        var rect = logo.getBoundingClientRect();
-        if (rect.top < window.innerHeight) {
-            logo.classList.add('visible');
-        }
-    });
-    </script>
     """,
     unsafe_allow_html=True
 )
 
-# ==== MODEL LOADING ====
+# ==== Load Model ====
 MODEL_PATH = "model/MobileNetV2_9150.h5"
 
 @st.cache_resource
@@ -87,7 +64,7 @@ def load_trained_model():
 
 model = load_trained_model()
 
-# ==== LABEL ====
+# ==== Label ====
 CLASS_NAMES = [
     'American Shorthair', 'Bengal', 'Bombay', 'British Shorthair',
     'Himalayan', 'Maine Coon', 'Manx', 'Persian', 'Ragdoll',
@@ -96,13 +73,11 @@ CLASS_NAMES = [
 
 # ==== UI ====
 
-# Logo + Animation
+# Logo
 logo = Image.open("Logo/logo web HD.png")
-logo_container = st.empty()
-with logo_container.container():
-    st.markdown("<div class='logo-container'>", unsafe_allow_html=True)
-    st.image(logo, width=200)
-    st.markdown("</div>", unsafe_allow_html=True)
+st.markdown("<div class='logo-container'>", unsafe_allow_html=True)
+st.image(logo, width=200)
+st.markdown("</div>", unsafe_allow_html=True)
 
 # Judul
 st.markdown(
@@ -110,7 +85,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.markdown(
-    "<p style='text-align: center; font-size: 18px; color: #000000;'>Unggah gambar kucing favoritmu dan temukan rasnya!</p>",
+    "<p style='text-align: center; font-size: 18px;'>Unggah gambar kucing favoritmu dan temukan rasnya!</p>",
     unsafe_allow_html=True
 )
 
@@ -140,9 +115,9 @@ if uploaded_file:
 
     st.markdown(
         f"""
-        <div style="background-color:#fff6e5; padding:20px; border-radius:10px; text-align:center; box-shadow:0px 0px 10px #f4a300;">
+        <div style="background-color: var(--secondary-background-color); padding:20px; border-radius:10px; text-align:center; box-shadow:0px 0px 10px #f4a300;">
             <h3 style="color:#f4a300;">{predicted_class}</h3>
-            <p style="font-size:18px; color:#000000;">Tingkat Kepercayaan: <strong>{confidence*100:.2f}%</strong></p>
+            <p style="font-size:18px;">Tingkat Kepercayaan: <strong>{confidence*100:.2f}%</strong></p>
         </div>
         """,
         unsafe_allow_html=True
@@ -154,7 +129,7 @@ if uploaded_file:
 st.markdown(
     """
     <hr>
-    <div style='text-align: center; font-size: 14px; color: #000000;'>
+    <div style='text-align: center; font-size: 14px;'>
         © 2025 - Klasifikasi Ras Kucing dengan AI | Made with ❤️ by Boy
     </div>
     """,
