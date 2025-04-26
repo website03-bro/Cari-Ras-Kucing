@@ -15,10 +15,37 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    /* Top bar bawaan Streamlit */
+    /* Sembunyikan header asli Streamlit */
     header[data-testid="stHeader"] {
-        background-color: #f4a300 !important;
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        display: none;
+    }
+
+    /* Custom Navbar */
+    .custom-navbar {
+        background-color: #f4a300;
+        padding: 10px 30px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-radius: 0 0 12px 12px;
+    }
+    .custom-navbar img {
+        height: 50px;
+    }
+    .custom-navbar h1 {
+        color: white;
+        margin: 0;
+        font-size: 24px;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+        .custom-navbar h1 {
+            font-size: 20px;
+        }
+        .custom-navbar img {
+            height: 40px;
+        }
     }
 
     body {
@@ -46,29 +73,9 @@ st.markdown(
     hr {
         border: 1px solid #f4a300;
     }
-    .header-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 15px;
-        flex-wrap: wrap;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-    .header-container img {
-        max-height: 60px;
-        height: auto;
-        width: auto;
-    }
     img {
         pointer-events: none;
         user-select: none;
-    }
-    /* Responsive tweak for mobile */
-    @media (max-width: 768px) {
-        h1 {
-            font-size: 28px !important;
-        }
     }
     </style>
     """,
@@ -91,30 +98,25 @@ CLASS_NAMES = [
     'Russian Blue', 'Scottish Fold', 'Siamese', 'Sphynx'
 ]
 
-# ==== UI ====
-
-# Logo + Judul Sejajar
+# ==== Custom Navbar ====
 logo = Image.open("Logo/logo web HD.png")
-st.markdown("<div class='header-container'>", unsafe_allow_html=True)
-col1, col2 = st.columns([1, 6])
-
-with col1:
-    st.image(logo, use_container_width=False, width=80)
-
-with col2:
-    st.markdown(
-        "<h1 style='color: #f4a300; margin: 0;'>Klasifikasi Ras Kucing 🐾</h1>",
-        unsafe_allow_html=True
-    )
-st.markdown("</div>", unsafe_allow_html=True)
-
-# Subtitle
 st.markdown(
-    "<p style='text-align: center; font-size: 18px;'>Unggah gambar kucing favoritmu dan temukan rasnya!</p>",
+    f"""
+    <div class="custom-navbar">
+        <img src="data:image/png;base64,{st.image(logo, output_format="png").image_to_base64()}" alt="Logo">
+        <h1>Klasifikasi Ras Kucing 🐾</h1>
+    </div>
+    """,
     unsafe_allow_html=True
 )
 
-# Upload gambar
+# ==== Subtitle ====
+st.markdown(
+    "<p style='text-align: center; font-size: 18px; margin-top:20px;'>Unggah gambar kucing favoritmu dan temukan rasnya!</p>",
+    unsafe_allow_html=True
+)
+
+# ==== Upload Gambar ====
 st.markdown("---")
 uploaded_file = st.file_uploader("📤 Pilih gambar kucing...", type=["jpg", "jpeg", "png", "webp"])
 
@@ -150,7 +152,7 @@ if uploaded_file:
 
     st.progress(float(confidence))
 
-# Footer
+# ==== Footer ====
 st.markdown(
     """
     <hr>
