@@ -15,6 +15,12 @@ st.set_page_config(
 st.markdown(
     """
     <style>
+    /* Top bar bawaan Streamlit */
+    header[data-testid="stHeader"] {
+        background-color: #f4a300 !important;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+
     body {
         background-color: var(--background-color);
         color: var(--text-color);
@@ -50,7 +56,7 @@ st.markdown(
         margin-bottom: 20px;
     }
     .header-container img {
-        max-height: 60px; /* Maksimal tinggi logo */
+        max-height: 60px;
         height: auto;
         width: auto;
     }
@@ -93,7 +99,7 @@ st.markdown("<div class='header-container'>", unsafe_allow_html=True)
 col1, col2 = st.columns([1, 6])
 
 with col1:
-    st.image(logo, use_container_width=False, width=80)  # <= Pakai width supaya kecil di mobile
+    st.image(logo, use_container_width=False, width=80)
 
 with col2:
     st.markdown(
