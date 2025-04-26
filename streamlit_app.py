@@ -89,7 +89,7 @@ CLASS_NAMES = [
 
 # ==== UI ====
 
-# Header: Logo dan Judul Sejajar
+# Header: Logo dan Judul Sejajar dengan Animasi
 logo = Image.open("Logo/logo web HD.png")
 st.markdown("<div class='header-container'>", unsafe_allow_html=True)
 
