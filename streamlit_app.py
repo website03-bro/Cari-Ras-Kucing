@@ -116,7 +116,7 @@ st.markdown(
 
 # Upload gambar
 st.markdown("---")
-uploaded_file = st.file_uploader("📤 Pilih gambar kucing...", type=["jpg", "jpeg", "png", "webp","HEIC"])
+uploaded_file = st.file_uploader("📤 Pilih gambar kucing...", type=["jpg", "jpeg", "png", "webp","HEIC","HEIF"])
 
 if uploaded_file:
     image = Image.open(uploaded_file)
