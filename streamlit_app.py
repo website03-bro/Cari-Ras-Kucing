@@ -92,7 +92,7 @@ CLASS_NAMES = [
 # Logo di tengah beneran
 logo = Image.open("Logo/logo web HD.png")
 st.markdown("<div class='logo-container'>", unsafe_allow_html=True)
-st.image(logo, width=400)
+st.image(logo, width=100)
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Judul aplikasi
