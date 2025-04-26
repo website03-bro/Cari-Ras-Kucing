@@ -2,7 +2,6 @@ import streamlit as st
 import numpy as np
 from tensorflow.keras.models import load_model
 from PIL import Image
-import os
 
 # Atur halaman
 st.set_page_config(
@@ -10,6 +9,34 @@ st.set_page_config(
     page_icon="🐱",
     layout="centered",
     initial_sidebar_state="auto"
+)
+
+# Styling CSS biar background putih dan warna tombol/teks lebih serasi
+st.markdown(
+    """
+    <style>
+    body {
+        background-color: #ffffff;
+    }
+    .stButton>button {
+        background-color: #f4a300;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+        height: 3em;
+        width: 100%;
+    }
+    .stFileUploader {
+        background-color: #fff6e5;
+        padding: 1em;
+        border-radius: 10px;
+    }
+    hr {
+        border: 1px solid #f4a300;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
 )
 
 # Path model di dalam folder repository GitHub
@@ -31,17 +58,24 @@ CLASS_NAMES = [
 
 # ================== Tampilan UI ==================
 
+# Menampilkan logo
+# Load gambar logo
+logo = Image.open("Logo/logo web HD.png")
 
-# Menampilkan logo
-# Menampilkan logo
-st.image("Logo/logo web.png", width=200)
+# Tampilkan gambar logo di tengah
+st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+st.image(logo, width=200)
+st.markdown("</div>", unsafe_allow_html=True)
 
 # Judul aplikasi
 st.markdown(
-    "<h1 style='text-align: center; color: #ff69b4;'>Klasifikasi Ras Kucing 🐾</h1>",
+    "<h1 style='text-align: center; color: #f4a300;'>Klasifikasi Ras Kucing 🐾</h1>",
     unsafe_allow_html=True
 )
-st.markdown("<p style='text-align: center; font-size: 18px;'>Unggah gambar kucing favoritmu dan temukan rasnya!</p>", unsafe_allow_html=True)
+st.markdown(
+    "<p style='text-align: center; font-size: 18px;'>Unggah gambar kucing favoritmu dan temukan rasnya!</p>",
+    unsafe_allow_html=True
+)
 
 # Upload gambar
 st.markdown("---")
@@ -64,7 +98,7 @@ if uploaded_file:
     # Hasil Prediksi
     st.markdown("---")
     st.markdown(
-        "<h2 style='text-align: center; color: #6a5acd;'>Hasil Prediksi 🐾</h2>",
+        "<h2 style='text-align: center; color: #f4a300;'>Hasil Prediksi 🐾</h2>",
         unsafe_allow_html=True
     )
     st.success(f"**Ras Kucing:** {predicted_class}")
@@ -74,8 +108,8 @@ if uploaded_file:
 st.markdown(
     """
     <hr>
-    <div style='text-align: center;'>
-        <small>© 2025 - Klasifikasi Ras Kucing dengan AI | Made with ❤️ by Boy</small>
+    <div style='text-align: center; font-size: 14px; color: #666;'>
+        © 2025 - Klasifikasi Ras Kucing dengan AI | Made with ❤️ by Boy
     </div>
     """,
     unsafe_allow_html=True
