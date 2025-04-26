@@ -2,9 +2,9 @@ import streamlit as st
 import numpy as np
 from tensorflow.keras.models import load_model
 from PIL import Image
-import streamlit.components.v1 as components  # untuk custom HTML/JS
+import streamlit.components.v1 as components  # untuk HTML injection
 
-# Atur halaman
+# ==== SETTING: Wajib light theme ====
 st.set_page_config(
     page_title="Klasifikasi Ras Kucing",
     page_icon="🐱",
@@ -12,13 +12,17 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
-# Styling CSS + JS
+# ==== CSS Styling ====
 st.markdown(
     """
     <style>
+    /* Paksa semua background jadi putih dan teks jadi hitam */
     body {
-        background-color: #ffffff;
-        color: #000000;
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+    header, footer, .stSidebar {
+        background-color: #ffffff !important;
     }
     .stButton>button {
         background-color: #f4a300;
@@ -41,6 +45,7 @@ st.markdown(
     hr {
         border: 1px solid #f4a300;
     }
+    /* Logo Styling */
     .logo-container {
         display: flex;
         justify-content: center;
@@ -73,7 +78,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Load model
+# ==== MODEL LOADING ====
 MODEL_PATH = "model/MobileNetV2_9150.h5"
 
 @st.cache_resource
@@ -82,22 +87,24 @@ def load_trained_model():
 
 model = load_trained_model()
 
-# Label ras kucing
+# ==== LABEL ====
 CLASS_NAMES = [
     'American Shorthair', 'Bengal', 'Bombay', 'British Shorthair',
     'Himalayan', 'Maine Coon', 'Manx', 'Persian', 'Ragdoll',
     'Russian Blue', 'Scottish Fold', 'Siamese', 'Sphynx'
 ]
 
-# ========== Tampilan UI ==========
+# ==== UI ====
 
-# Logo
+# Logo + Animation
 logo = Image.open("Logo/logo web HD.png")
-st.markdown("<div class='logo-container'>", unsafe_allow_html=True)
-st.image(logo, width=200)
-st.markdown("</div>", unsafe_allow_html=True)
+logo_container = st.empty()
+with logo_container.container():
+    st.markdown("<div class='logo-container'>", unsafe_allow_html=True)
+    st.image(logo, width=200)
+    st.markdown("</div>", unsafe_allow_html=True)
 
-# Judul aplikasi
+# Judul
 st.markdown(
     "<h1 style='text-align: center; color: #f4a300;'>Klasifikasi Ras Kucing 🐾</h1>",
     unsafe_allow_html=True
