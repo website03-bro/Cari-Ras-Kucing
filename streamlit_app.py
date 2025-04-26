@@ -11,13 +11,13 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
-# ==== CSS Styling ====
+# ==== CSS Styling + Animasi ====
 st.markdown(
     """
     <style>
     body {
-        background-color: #ffffff;
-        color: #000000;
+        background-color: var(--background-color);
+        color: var(--text-color);
     }
     .stButton>button {
         background-color: #f4a300;
@@ -33,14 +33,14 @@ st.markdown(
         transform: scale(1.05);
     }
     .stFileUploader {
-        background-color: #f9f9f9;
+        background-color: var(--secondary-background-color);
         padding: 1em;
         border-radius: 10px;
     }
     hr {
         border: 1px solid #f4a300;
     }
-    /* Header Container */
+    /* Header Container dengan Animasi */
     .header-container {
         display: flex;
         align-items: center;
@@ -49,9 +49,22 @@ st.markdown(
         flex-wrap: wrap;
         margin-top: 20px;
         margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1s ease-out forwards;
     }
     .header-container img {
         height: 60px;
+    }
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    img {
+        pointer-events: none;
+        user-select: none;
     }
     </style>
     """,
@@ -76,7 +89,7 @@ CLASS_NAMES = [
 
 # ==== UI ====
 
-# Header: Logo dan Judul Sejajar
+# Header: Logo dan Judul Sejajar dengan Animasi
 logo = Image.open("Logo/logo web HD.png")
 st.markdown("<div class='header-container'>", unsafe_allow_html=True)
 
@@ -123,7 +136,7 @@ if uploaded_file:
 
     st.markdown(
         f"""
-        <div style="background-color: #f9f9f9; padding:20px; border-radius:10px; text-align:center; box-shadow:0px 0px 10px #f4a300;">
+        <div style="background-color: var(--secondary-background-color); padding:20px; border-radius:10px; text-align:center; box-shadow:0px 0px 10px #f4a300;">
             <h3 style="color:#f4a300;">{predicted_class}</h3>
             <p style="font-size:18px;">Tingkat Kepercayaan: <strong>{confidence*100:.2f}%</strong></p>
         </div>
