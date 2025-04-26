@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
-# ==== CSS Styling + Animasi ====
+# ==== CSS Styling Adaptif ====
 st.markdown(
     """
     <style>
@@ -40,7 +40,6 @@ st.markdown(
     hr {
         border: 1px solid #f4a300;
     }
-    /* Header Container dengan Animasi */
     .header-container {
         display: flex;
         align-items: center;
@@ -49,18 +48,9 @@ st.markdown(
         flex-wrap: wrap;
         margin-top: 20px;
         margin-bottom: 20px;
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeInUp 1s ease-out forwards;
     }
     .header-container img {
-        height: 60px;
-    }
-    @keyframes fadeInUp {
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        height: 60px; /* Sesuaikan tinggi logo */
     }
     img {
         pointer-events: none;
@@ -89,19 +79,19 @@ CLASS_NAMES = [
 
 # ==== UI ====
 
-# Header: Logo dan Judul Sejajar dengan Animasi
+# Logo + Judul Sejajar
 logo = Image.open("Logo/logo web HD.png")
 st.markdown("<div class='header-container'>", unsafe_allow_html=True)
-
 col1, col2 = st.columns([1, 6])
+
 with col1:
-    st.image(logo, use_container_width=True)
+    st.image(logo, use_column_width=True)
+
 with col2:
     st.markdown(
         "<h1 style='color: #f4a300; margin: 0;'>Klasifikasi Ras Kucing 🐾</h1>",
         unsafe_allow_html=True
     )
-
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Subtitle
