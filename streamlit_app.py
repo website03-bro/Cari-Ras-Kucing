@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
-# Styling CSS untuk background, tombol, efek hover, file uploader
+# Styling CSS tambahan
 st.markdown(
     """
     <style>
@@ -39,6 +39,11 @@ st.markdown(
     hr {
         border: 1px solid #f4a300;
     }
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     </style>
     """,
     unsafe_allow_html=True
@@ -63,11 +68,15 @@ CLASS_NAMES = [
 
 # ========== Tampilan UI ==========
 
-# Logo
+# Logo di tengah
 logo = Image.open("Logo/logo web HD.png")
-st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-st.image(logo, width=200)
-st.markdown("</div>", unsafe_allow_html=True)
+col1, col2, col3 = st.columns([1,2,1])  # Bagi menjadi 3 kolom
+with col1:
+    st.write("")
+with col2:
+    st.image(logo, width=200)  # Logo di kolom tengah
+with col3:
+    st.write("")
 
 # Judul
 st.markdown(
@@ -104,16 +113,18 @@ if uploaded_file:
         unsafe_allow_html=True
     )
 
-    # Tampilkan hasil dalam card
+    # Card hasil prediksi
     st.markdown(
         f"""
         <div style="background-color:#fff6e5; padding:20px; border-radius:10px; text-align:center; box-shadow:0px 0px 10px #f4a300;">
             <h3 style="color:#f4a300;">{predicted_class}</h3>
-            <p style="font-size:18px;">Tingkat Kepercayaan:</p>
+            <p style="font-size:18px;">Tingkat Kepercayaan: <strong>{confidence*100:.2f}%</strong></p>
         </div>
         """,
         unsafe_allow_html=True
     )
+
+    # Progress bar confidence
     st.progress(float(confidence))
 
 # Footer
