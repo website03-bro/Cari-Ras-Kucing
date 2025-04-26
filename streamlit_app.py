@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 from tensorflow.keras.models import load_model
 from PIL import Image
+import streamlit.components.v1 as components  # untuk custom HTML/JS
 
 # Atur halaman
 st.set_page_config(
@@ -11,53 +12,63 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
-# Warna tetap (tema light)
-primary_color = "#f4a300"
-background_color = "#ffffff"
-text_color = "#000000"
-card_color = "#fff6e5"
-
-# Styling CSS
+# Styling CSS + JS
 st.markdown(
-    f"""
+    """
     <style>
-    body {{
-        background-color: {background_color};
-        color: {text_color};
-    }}
-    .stButton>button {{
-        background-color: {primary_color};
+    body {
+        background-color: #ffffff;
+        color: #000000;
+    }
+    .stButton>button {
+        background-color: #f4a300;
         color: white;
         font-weight: bold;
         border-radius: 8px;
         height: 3em;
         width: 100%;
         transition: 0.3s;
-    }}
-    .stButton>button:hover {{
+    }
+    .stButton>button:hover {
         background-color: #e69500;
         transform: scale(1.05);
-    }}
-    .stFileUploader {{
-        background-color: {card_color};
+    }
+    .stFileUploader {
+        background-color: #fff6e5;
         padding: 1em;
         border-radius: 10px;
-    }}
-    hr {{
-        border: 1px solid {primary_color};
-    }}
-    .logo-container {{
+    }
+    hr {
+        border: 1px solid #f4a300;
+    }
+    .logo-container {
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-top: 20px;
+        opacity: 0;
+        transform: translateY(-30px);
+        transition: all 1s ease;
+    }
+    .logo-container.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    img {
         pointer-events: none;
         user-select: none;
-    }}
-    img {{
-        pointer-events: none;
-        user-select: none;
-    }}
+    }
     </style>
+
+    <script>
+    window.addEventListener('scroll', function() {
+        var logo = document.querySelector('.logo-container');
+        var rect = logo.getBoundingClientRect();
+        if (rect.top < window.innerHeight) {
+            logo.classList.add('visible');
+        }
+    });
+    </script>
     """,
     unsafe_allow_html=True
 )
@@ -88,11 +99,11 @@ st.markdown("</div>", unsafe_allow_html=True)
 
 # Judul aplikasi
 st.markdown(
-    f"<h1 style='text-align: center; color: {primary_color};'>Klasifikasi Ras Kucing 🐾</h1>",
+    "<h1 style='text-align: center; color: #f4a300;'>Klasifikasi Ras Kucing 🐾</h1>",
     unsafe_allow_html=True
 )
 st.markdown(
-    f"<p style='text-align: center; font-size: 18px; color: {text_color};'>Unggah gambar kucing favoritmu dan temukan rasnya!</p>",
+    "<p style='text-align: center; font-size: 18px; color: #000000;'>Unggah gambar kucing favoritmu dan temukan rasnya!</p>",
     unsafe_allow_html=True
 )
 
@@ -116,15 +127,15 @@ if uploaded_file:
     # Hasil Prediksi
     st.markdown("---")
     st.markdown(
-        f"<h2 style='text-align: center; color: {primary_color};'>Hasil Prediksi 🐾</h2>",
+        "<h2 style='text-align: center; color: #f4a300;'>Hasil Prediksi 🐾</h2>",
         unsafe_allow_html=True
     )
 
     st.markdown(
         f"""
-        <div style="background-color:{card_color}; padding:20px; border-radius:10px; text-align:center; box-shadow:0px 0px 10px {primary_color};">
-            <h3 style="color:{primary_color};">{predicted_class}</h3>
-            <p style="font-size:18px; color:{text_color};">Tingkat Kepercayaan: <strong>{confidence*100:.2f}%</strong></p>
+        <div style="background-color:#fff6e5; padding:20px; border-radius:10px; text-align:center; box-shadow:0px 0px 10px #f4a300;">
+            <h3 style="color:#f4a300;">{predicted_class}</h3>
+            <p style="font-size:18px; color:#000000;">Tingkat Kepercayaan: <strong>{confidence*100:.2f}%</strong></p>
         </div>
         """,
         unsafe_allow_html=True
@@ -134,9 +145,9 @@ if uploaded_file:
 
 # Footer
 st.markdown(
-    f"""
+    """
     <hr>
-    <div style='text-align: center; font-size: 14px; color: {text_color};'>
+    <div style='text-align: center; font-size: 14px; color: #000000;'>
         © 2025 - Klasifikasi Ras Kucing dengan AI | Made with ❤️ by Boy
     </div>
     """,
