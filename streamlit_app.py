@@ -33,14 +33,8 @@ CLASS_NAMES = [
 
 
 # Menampilkan logo
-st.markdown(
-    """
-    <div style="text-align: center;">
-        <img src="Logo/logo web.png" alt="Logo" width="200"/>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+# Menampilkan logo
+st.image("Logo/logo web.png", width=200)
 
 # Judul aplikasi
 st.markdown(
