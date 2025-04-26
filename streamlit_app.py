@@ -11,20 +11,11 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
-# Theme detection dari streamlit
-current_theme = st.get_option("theme.base")  # light or dark
-
-# Menyesuaikan warna berdasarkan tema
-if current_theme == "dark":
-    primary_color = "#f4a300"
-    background_color = "#1E1E1E"
-    text_color = "#FFFFFF"
-    card_color = "#333333"
-else:
-    primary_color = "#f4a300"
-    background_color = "#ffffff"
-    text_color = "#000000"
-    card_color = "#fff6e5"
+# Warna tetap (tema light)
+primary_color = "#f4a300"
+background_color = "#ffffff"
+text_color = "#000000"
+card_color = "#fff6e5"
 
 # Styling CSS
 st.markdown(
@@ -59,12 +50,12 @@ st.markdown(
         display: flex;
         justify-content: center;
         align-items: center;
-        pointer-events: none; /* Biar logo tidak bisa di klik */
-        user-select: none;    /* Biar tidak bisa di select */
+        pointer-events: none;
+        user-select: none;
     }}
     img {{
-        pointer-events: none; /* Biar logo tidak bisa di klik */
-        user-select: none;    /* Biar tidak bisa di select */
+        pointer-events: none;
+        user-select: none;
     }}
     </style>
     """,
@@ -89,10 +80,10 @@ CLASS_NAMES = [
 
 # ========== Tampilan UI ==========
 
-# Logo di tengah beneran
+# Logo
 logo = Image.open("Logo/logo web HD.png")
 st.markdown("<div class='logo-container'>", unsafe_allow_html=True)
-st.image(logo, width=100)
+st.image(logo, width=200)
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Judul aplikasi
@@ -139,7 +130,6 @@ if uploaded_file:
         unsafe_allow_html=True
     )
 
-    # Progress bar
     st.progress(float(confidence))
 
 # Footer
