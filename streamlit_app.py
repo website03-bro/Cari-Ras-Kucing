@@ -11,7 +11,6 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
-
 # ==== CSS Styling Adaptif ====
 st.markdown(
     """
@@ -51,11 +50,19 @@ st.markdown(
         margin-bottom: 20px;
     }
     .header-container img {
-        height: 60px; /* Sesuaikan tinggi logo */
+        max-height: 60px; /* Maksimal tinggi logo */
+        height: auto;
+        width: auto;
     }
     img {
         pointer-events: none;
         user-select: none;
+    }
+    /* Responsive tweak for mobile */
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 28px !important;
+        }
     }
     </style>
     """,
@@ -86,7 +93,7 @@ st.markdown("<div class='header-container'>", unsafe_allow_html=True)
 col1, col2 = st.columns([1, 6])
 
 with col1:
-    st.image(logo, use_container_width=True)  # <<=== yang ini sudah diperbaiki
+    st.image(logo, use_container_width=False, width=80)  # <= Pakai width supaya kecil di mobile
 
 with col2:
     st.markdown(
