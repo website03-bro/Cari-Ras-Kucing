@@ -11,55 +11,76 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
-# Styling CSS tambahan
+# Theme detection dari streamlit
+current_theme = st.get_option("theme.base")  # light or dark
+
+# Menyesuaikan warna berdasarkan tema
+if current_theme == "dark":
+    primary_color = "#f4a300"
+    background_color = "#1E1E1E"
+    text_color = "#FFFFFF"
+    card_color = "#333333"
+else:
+    primary_color = "#f4a300"
+    background_color = "#ffffff"
+    text_color = "#000000"
+    card_color = "#fff6e5"
+
+# Styling CSS
 st.markdown(
-    """
+    f"""
     <style>
-    body {
-        background-color: #ffffff;
-    }
-    .stButton>button {
-        background-color: #f4a300;
+    body {{
+        background-color: {background_color};
+        color: {text_color};
+    }}
+    .stButton>button {{
+        background-color: {primary_color};
         color: white;
         font-weight: bold;
         border-radius: 8px;
         height: 3em;
         width: 100%;
         transition: 0.3s;
-    }
-    .stButton>button:hover {
+    }}
+    .stButton>button:hover {{
         background-color: #e69500;
         transform: scale(1.05);
-    }
-    .stFileUploader {
-        background-color: #fff6e5;
+    }}
+    .stFileUploader {{
+        background-color: {card_color};
         padding: 1em;
         border-radius: 10px;
-    }
-    hr {
-        border: 1px solid #f4a300;
-    }
-    .center {
+    }}
+    hr {{
+        border: 1px solid {primary_color};
+    }}
+    .logo-container {{
         display: flex;
         justify-content: center;
         align-items: center;
-    }
+        pointer-events: none; /* Biar logo tidak bisa di klik */
+        user-select: none;    /* Biar tidak bisa di select */
+    }}
+    img {{
+        pointer-events: none; /* Biar logo tidak bisa di klik */
+        user-select: none;    /* Biar tidak bisa di select */
+    }}
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# Path model
+# Load model
 MODEL_PATH = "model/MobileNetV2_9150.h5"
 
-# Cache model
 @st.cache_resource
 def load_trained_model():
     return load_model(MODEL_PATH)
 
 model = load_trained_model()
 
-# Label kelas
+# Label ras kucing
 CLASS_NAMES = [
     'American Shorthair', 'Bengal', 'Bombay', 'British Shorthair',
     'Himalayan', 'Maine Coon', 'Manx', 'Persian', 'Ragdoll',
@@ -68,23 +89,19 @@ CLASS_NAMES = [
 
 # ========== Tampilan UI ==========
 
-# Logo di tengah
+# Logo di tengah beneran
 logo = Image.open("Logo/logo web HD.png")
-col1, col2, col3 = st.columns([1,2,1])  # Bagi menjadi 3 kolom
-with col1:
-    st.write("")
-with col2:
-    st.image(logo, width=200)  # Logo di kolom tengah
-with col3:
-    st.write("")
+st.markdown("<div class='logo-container'>", unsafe_allow_html=True)
+st.image(logo, width=200)
+st.markdown("</div>", unsafe_allow_html=True)
 
-# Judul
+# Judul aplikasi
 st.markdown(
-    "<h1 style='text-align: center; color: #f4a300;'>Klasifikasi Ras Kucing 🐾</h1>",
+    f"<h1 style='text-align: center; color: {primary_color};'>Klasifikasi Ras Kucing 🐾</h1>",
     unsafe_allow_html=True
 )
 st.markdown(
-    "<p style='text-align: center; font-size: 18px;'>Unggah gambar kucing favoritmu dan temukan rasnya!</p>",
+    f"<p style='text-align: center; font-size: 18px; color: {text_color};'>Unggah gambar kucing favoritmu dan temukan rasnya!</p>",
     unsafe_allow_html=True
 )
 
@@ -100,7 +117,6 @@ if uploaded_file:
     img = image.resize((224, 224))
     img_array = np.expand_dims(np.array(img) / 255.0, axis=0)
 
-    # Spinner saat prediksi berjalan
     with st.spinner('⏳ Menganalisis gambar kucing...'):
         predictions = model.predict(img_array)
         predicted_class = CLASS_NAMES[np.argmax(predictions)]
@@ -109,29 +125,28 @@ if uploaded_file:
     # Hasil Prediksi
     st.markdown("---")
     st.markdown(
-        "<h2 style='text-align: center; color: #f4a300;'>Hasil Prediksi 🐾</h2>",
+        f"<h2 style='text-align: center; color: {primary_color};'>Hasil Prediksi 🐾</h2>",
         unsafe_allow_html=True
     )
 
-    # Card hasil prediksi
     st.markdown(
         f"""
-        <div style="background-color:#fff6e5; padding:20px; border-radius:10px; text-align:center; box-shadow:0px 0px 10px #f4a300;">
-            <h3 style="color:#f4a300;">{predicted_class}</h3>
-            <p style="font-size:18px;">Tingkat Kepercayaan: <strong>{confidence*100:.2f}%</strong></p>
+        <div style="background-color:{card_color}; padding:20px; border-radius:10px; text-align:center; box-shadow:0px 0px 10px {primary_color};">
+            <h3 style="color:{primary_color};">{predicted_class}</h3>
+            <p style="font-size:18px; color:{text_color};">Tingkat Kepercayaan: <strong>{confidence*100:.2f}%</strong></p>
         </div>
         """,
         unsafe_allow_html=True
     )
 
-    # Progress bar confidence
+    # Progress bar
     st.progress(float(confidence))
 
 # Footer
 st.markdown(
-    """
+    f"""
     <hr>
-    <div style='text-align: center; font-size: 14px; color: #666;'>
+    <div style='text-align: center; font-size: 14px; color: {text_color};'>
         © 2025 - Klasifikasi Ras Kucing dengan AI | Made with ❤️ by Boy
     </div>
     """,
