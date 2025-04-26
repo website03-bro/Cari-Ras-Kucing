@@ -11,7 +11,7 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
-# ==== CSS Styling Adaptif ====
+# ==== CSS Styling + ANIMASI ====
 st.markdown(
     """
     <style>
@@ -40,6 +40,7 @@ st.markdown(
     hr {
         border: 1px solid #f4a300;
     }
+    /* Header Container dengan Animasi */
     .header-container {
         display: flex;
         align-items: center;
@@ -48,9 +49,20 @@ st.markdown(
         flex-wrap: wrap;
         margin-top: 20px;
         margin-bottom: 20px;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 1s ease-out forwards;
     }
+    /* Gambar Logo */
     .header-container img {
         height: 60px; /* Sesuaikan tinggi logo */
+    }
+    /* Animasi Keyframes */
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
     img {
         pointer-events: none;
@@ -79,13 +91,13 @@ CLASS_NAMES = [
 
 # ==== UI ====
 
-# Logo + Judul Sejajar
+# Logo + Judul Sejajar dengan Animasi
 logo = Image.open("Logo/logo web HD.png")
 st.markdown("<div class='header-container'>", unsafe_allow_html=True)
 col1, col2 = st.columns([1, 6])
 
 with col1:
-    st.image(logo, use_container_width=True)  # <<=== yang ini sudah diperbaiki
+    st.image(logo, use_container_width=True)
 
 with col2:
     st.markdown(
