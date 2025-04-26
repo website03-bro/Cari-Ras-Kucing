@@ -36,7 +36,7 @@ CLASS_NAMES = [
 st.markdown(
     """
     <div style="text-align: center;">
-        <img src="Logo web.pn" alt="Logo" width="200"/>
+        <img src="Logo/logo web.png" alt="Logo" width="200"/>
     </div>
     """,
     unsafe_allow_html=True
