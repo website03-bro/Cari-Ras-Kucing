@@ -40,11 +40,17 @@ st.markdown(
     hr {
         border: 1px solid #f4a300;
     }
-    .logo-container {
+    .header-container {
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
         margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .header-container img {
+        height: 60px; /* Sesuaikan tinggi logo */
     }
     img {
         pointer-events: none;
@@ -73,17 +79,22 @@ CLASS_NAMES = [
 
 # ==== UI ====
 
-# Logo
+# Logo + Judul Sejajar
 logo = Image.open("Logo/logo web HD.png")
-st.markdown("<div class='logo-container'>", unsafe_allow_html=True)
-st.image(logo, width=200)
+st.markdown("<div class='header-container'>", unsafe_allow_html=True)
+col1, col2 = st.columns([1, 6])
+
+with col1:
+    st.image(logo, use_column_width=True)
+
+with col2:
+    st.markdown(
+        "<h1 style='color: #f4a300; margin: 0;'>Klasifikasi Ras Kucing 🐾</h1>",
+        unsafe_allow_html=True
+    )
 st.markdown("</div>", unsafe_allow_html=True)
 
-# Judul
-st.markdown(
-    "<h1 style='text-align: center; color: #f4a300;'>Klasifikasi Ras Kucing 🐾</h1>",
-    unsafe_allow_html=True
-)
+# Subtitle
 st.markdown(
     "<p style='text-align: center; font-size: 18px;'>Unggah gambar kucing favoritmu dan temukan rasnya!</p>",
     unsafe_allow_html=True
