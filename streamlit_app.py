@@ -4,6 +4,14 @@ from tensorflow.keras.models import load_model
 from PIL import Image
 import os
 
+# Atur halaman
+st.set_page_config(
+    page_title="Klasifikasi Ras Kucing",
+    page_icon="🐱",
+    layout="centered",
+    initial_sidebar_state="auto"
+)
+
 # Path model di dalam folder repository GitHub
 MODEL_PATH = "model/MobileNetV2_9150.h5"
 
@@ -23,13 +31,6 @@ CLASS_NAMES = [
 
 # ================== Tampilan UI ==================
 
-# Atur halaman
-st.set_page_config(
-    page_title="Klasifikasi Ras Kucing",
-    page_icon="🐱",
-    layout="centered",
-    initial_sidebar_state="auto"
-)
 
 # Menampilkan logo
 st.markdown(
