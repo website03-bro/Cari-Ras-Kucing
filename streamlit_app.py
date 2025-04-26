@@ -85,7 +85,7 @@ st.markdown("<div class='header-container'>", unsafe_allow_html=True)
 col1, col2 = st.columns([1, 6])
 
 with col1:
-    st.image(logo, use_column_width=True)
+    st.image(logo, use_container_width=True)  # <<=== yang ini sudah diperbaiki
 
 with col2:
     st.markdown(
