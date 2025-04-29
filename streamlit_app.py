@@ -155,7 +155,7 @@ st.markdown(
     """
     <hr>
     <div style='text-align: center; font-size: 14px;'>
-        © 2025 - Klasifikasi Ras Kucing dengan AI | Made with ❤️ by Boy
+        © 2025 - Klasifikasi Ras Kucing | Made by Boy
     </div>
     """,
     unsafe_allow_html=True
