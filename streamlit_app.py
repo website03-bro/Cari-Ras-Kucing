@@ -110,11 +110,11 @@ st.markdown("---")
 st.markdown("### 📷 Contoh Gambar Ras Kucing")
 
 img_paths = [
-    "images/American Shorthair.jpg",
+    "images/American ShortHair.jpg",
     "images/Bengal.jpg",
     "images/Bombay.jpg",
     "images/British Shorthair.jpg",
-    "images/Himalayan.jpg",
+    "images/siamese.jpg",
     "images/Maine Coon.jpg",
     "images/Manx.jpg",
     "images/Persian.jpg",
