@@ -114,7 +114,7 @@ img_paths = [
     "images/Bengal.jpg",
     "images/Bombay.jpg",
     "images/British Shorthair.jpg",
-    "images/Himalayan.jpg,
+    "images/Himalayan.jpg",
     "images/Maine Coon.jpg",
     "images/Manx.jpg",
     "images/persia.jpg",
