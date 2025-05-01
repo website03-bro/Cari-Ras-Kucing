@@ -11,69 +11,89 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
-# ==== CSS Styling Adaptif ====
-st.markdown(
-    """
+# ==== CSS Styling Modern ====
+st.markdown("""
     <style>
-    /* Top bar bawaan Streamlit */
     header[data-testid="stHeader"] {
-        background-color: #f4a300 !important;
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        background-color: #f4a300;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     }
 
-    body {
-        background-color: var(--background-color);
-        color: var(--text-color);
+    body, .main {
+        background-color: #fef9f0;
+        font-family: 'Segoe UI', sans-serif;
     }
+
+    .header-container {
+        background-color: white;
+        padding: 1rem 2rem;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    .header-container img {
+        height: 60px;
+    }
+
+    .header-container h1 {
+        color: #f4a300;
+        font-size: 2rem;
+        margin: 0;
+    }
+
+    .stFileUploader {
+        background-color: white;
+        border: 2px dashed #f4a300;
+        padding: 20px;
+        border-radius: 15px;
+    }
+
     .stButton>button {
         background-color: #f4a300;
         color: white;
         font-weight: bold;
         border-radius: 8px;
-        height: 3em;
-        width: 100%;
+        padding: 0.8em 2em;
         transition: 0.3s;
     }
+
     .stButton>button:hover {
         background-color: #e69500;
         transform: scale(1.05);
     }
-    .stFileUploader {
-        background-color: var(--secondary-background-color);
-        padding: 1em;
-        border-radius: 10px;
+
+    .result-card {
+        background-color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(244,163,0,0.25);
+        text-align: center;
     }
-    hr {
-        border: 1px solid #f4a300;
+
+    .result-card h3 {
+        color: #f4a300;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
     }
-    .header-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 15px;
-        flex-wrap: wrap;
-        margin-top: 20px;
-        margin-bottom: 20px;
+
+    .result-card p {
+        font-size: 1.1rem;
+        margin: 0;
     }
-    .header-container img {
-        max-height: 60px;
-        height: auto;
-        width: auto;
-    }
-    img {
-        pointer-events: none;
-        user-select: none;
-    }
-    /* Responsive tweak for mobile */
-    @media (max-width: 768px) {
-        h1 {
-            font-size: 28px !important;
-        }
+
+    footer {
+        text-align: center;
+        font-size: 0.9rem;
+        margin-top: 40px;
+        color: #555;
     }
     </style>
-    """,
-    unsafe_allow_html=True
-)
+""", unsafe_allow_html=True)
 
 # ==== Load Model ====
 MODEL_PATH = "model/MobileNetV2_9150.h5"
@@ -84,37 +104,32 @@ def load_trained_model():
 
 model = load_trained_model()
 
-# ==== Label ====
+# ==== Label Kelas ====
 CLASS_NAMES = [
     'American Shorthair', 'Bengal', 'Bombay', 'British Shorthair',
     'Himalayan', 'Maine Coon', 'Manx', 'Persian', 'Ragdoll',
     'Russian Blue', 'Scottish Fold', 'Siamese', 'Sphynx'
 ]
 
-# ==== UI ====
-
-# Logo + Judul Sejajar
-logo = Image.open("Logo/logo web HD.png")
+# ==== UI Logo dan Judul ====
 st.markdown("<div class='header-container'>", unsafe_allow_html=True)
 col1, col2 = st.columns([1, 6])
 
 with col1:
-    st.image(logo, use_container_width=False, width=80)
+    st.image("Logo/logo web HD.png", width=60)
 
 with col2:
-    st.markdown(
-        "<h1 style='color: #f4a300; margin: 0;'>Klasifikasi Ras Kucing 🐾</h1>",
-        unsafe_allow_html=True
-    )
+    st.markdown("<h1>Klasifikasi Ras Kucing 🐾</h1>", unsafe_allow_html=True)
+
 st.markdown("</div>", unsafe_allow_html=True)
 
-# Subtitle
+# ==== Subtitle ====
 st.markdown(
     "<p style='text-align: center; font-size: 18px;'>Unggah gambar kucing favoritmu dan temukan rasnya!</p>",
     unsafe_allow_html=True
 )
 
-# Upload gambar
+# ==== Upload Gambar ====
 st.markdown("---")
 uploaded_file = st.file_uploader("📤 Pilih gambar kucing...", type=["jpg", "jpeg", "png", "webp"])
 
@@ -122,35 +137,26 @@ if uploaded_file:
     image = Image.open(uploaded_file)
     st.image(image, caption="Gambar yang Diunggah", use_container_width=True)
 
-    # Preprocessing
+    # ==== Preprocessing ====
     img = image.resize((224, 224))
     img_array = np.expand_dims(np.array(img) / 255.0, axis=0)
 
+    # ==== Prediksi ====
     with st.spinner('⏳ Menganalisis gambar kucing...'):
         predictions = model.predict(img_array)
         predicted_class = CLASS_NAMES[np.argmax(predictions)]
         confidence = np.max(predictions)
 
-    # Hasil Prediksi
+    # ==== Hasil Prediksi ====
     st.markdown("---")
-    st.markdown(
-        "<h2 style='text-align: center; color: #f4a300;'>Hasil Prediksi 🐾</h2>",
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        f"""
-        <div style="background-color: var(--secondary-background-color); padding:20px; border-radius:10px; text-align:center; box-shadow:0px 0px 10px #f4a300;">
-            <h3 style="color:#f4a300;">{predicted_class}</h3>
-            <p style="font-size:18px;">Tingkat Kepercayaan: <strong>{confidence*100:.2f}%</strong></p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown("<div class='result-card'>", unsafe_allow_html=True)
+    st.markdown(f"<h3>{predicted_class}</h3>", unsafe_allow_html=True)
+    st.markdown(f"<p>Tingkat Kepercayaan: <strong>{confidence*100:.2f}%</strong></p>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
     st.progress(float(confidence))
 
-# Footer
+# ==== Footer ====
 st.markdown(
     """
     <hr>
