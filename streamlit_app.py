@@ -107,19 +107,19 @@ st.markdown(
 
 # ==== Galeri Gambar Contoh ====
 st.markdown("---")
-st.markdown("### 📷 Contoh Gambar Ras Kucing")
+st.markdown("### Ras Kucing")
 
 img_paths = [
     "images/American ShortHair.jpg",
     "images/Bengal.jpg",
     "images/Bombay.jpg",
     "images/British Shorthair.jpg",
-    "images/siamese.jpg",
+    "images/Himalayan.jpg,
     "images/Maine Coon.jpg",
     "images/Manx.jpg",
     "images/persia.jpg",
     "images/ragdoll.jpg",
-    "images/scottish fold.jpg"
+    "images/russian blue.jpg"
 ]
 
 cols = st.columns(5)
