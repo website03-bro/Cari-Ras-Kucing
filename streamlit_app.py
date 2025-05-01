@@ -58,9 +58,16 @@ st.markdown("""
         pointer-events: none;
         user-select: none;
     }
+    .cat-gallery {
+        margin-top: 20px;
+    }
     @media (max-width: 768px) {
         h1 {
             font-size: 28px !important;
+        }
+        .cat-gallery img {
+            width: 100% !important;
+            height: auto !important;
         }
     }
     </style>
@@ -104,33 +111,6 @@ st.markdown(
     "<p style='text-align: center; font-size: 18px;'>Unggah gambar kucing favoritmu dan temukan rasnya!</p>",
     unsafe_allow_html=True
 )
-
-# ==== Galeri Gambar Contoh ====
-st.markdown("---")
-st.markdown("### Ras Kucing")
-
-img_paths = [
-    "images/American ShortHair.jpg",
-    "images/Bengal.jpg",
-    "images/Bombay.jpg",
-    "images/British Shorthair.jpg",
-    "images/Himalayan.jpg",
-    "images/Maine Coon.jpg",
-    "images/Manx.jpg",
-    "images/persia.jpg",
-    "images/ragdoll.jpg",
-    "images/russian blue.jpg"
-]
-
-cols = st.columns(5)
-for i, img_path in enumerate(img_paths):
-    try:
-        with cols[i % 5]:
-            st.image(img_path, use_container_width=True, caption=CLASS_NAMES[i])
-    except Exception as e:
-        with cols[i % 5]:
-            st.warning(f"❌ {CLASS_NAMES[i]}")
-            st.text("Gambar tidak ditemukan")
 
 # ==== Upload Gambar ====
 st.markdown("---")
@@ -178,3 +158,32 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
+# ==== Galeri Gambar Contoh Dipindah ke Bawah ====
+st.markdown("---")
+st.markdown("### 📸 Contoh Ras Kucing", unsafe_allow_html=True)
+
+img_paths = [
+    "images/American Shorthair.jpg",
+    "images/Bengal.jpg",
+    "images/Bombay.jpg",
+    "images/British Shorthair.jpg",
+    "images/Himalayan.jpg",
+    "images/Maine Coon.jpg",
+    "images/Manx.jpg",
+    "images/Persian.jpg",
+    "images/Ragdoll.jpg",
+    "images/Russian Blue.jpg"
+]
+
+st.markdown("<div class='cat-gallery'>", unsafe_allow_html=True)
+cols = st.columns(5)
+for i, img_path in enumerate(img_paths):
+    try:
+        with cols[i % 5]:
+            st.image(img_path, use_container_width=True, caption=CLASS_NAMES[i])
+    except Exception:
+        with cols[i % 5]:
+            st.warning(f"❌ {CLASS_NAMES[i]}")
+            st.text("Gambar tidak ditemukan")
+st.markdown("</div>", unsafe_allow_html=True)
