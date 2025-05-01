@@ -71,34 +71,32 @@ st.markdown("""
         }
     }
 
-     body {
-        animation: changeBackground 60s infinite;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        transition: background-image 2s ease-in-out;
-    }
+body {
+    animation: changeBackground 60s infinite;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 2s ease-in-out;
+}
 
-    @keyframes changeBackground {
-        0% { background-image: url('images/bg1.jpg'); }
-        10% { background-image: url('images/bg2.jpg'); }
-        20% { background-image: url('images/bg3.jpg'); }
-        30% { background-image: url('images/bg4.jpg'); }
-        40% { background-image: url('images/bg5.jpg'); }
-        50% { background-image: url('images/bg6.jpg'); }
-        60% { background-image: url('images/bg7.jpg'); }
-        70% { background-image: url('images/bg8.jpg'); }
-        80% { background-image: url('images/bg9.jpg'); }
-        90% { background-image: url('images/bg10.jpg'); }
-        100% { background-image: url('images/bg1.jpg'); }
-    }
+@keyframes changeBackground {
+    0%   { background-image: url('https://github.com/website03-bro/Cari-Ras-Kucing/blob/638f228cc2fe68bfaaeb6555cb9df448862978a6/images/bg1.jpg'); }
+    10%  { background-image: url('https://github.com/website03-bro/Cari-Ras-Kucing/blob/638f228cc2fe68bfaaeb6555cb9df448862978a6/images/bg2.jpg'); }
+    20%  { background-image: url('https://github.com/website03-bro/Cari-Ras-Kucing/blob/638f228cc2fe68bfaaeb6555cb9df448862978a6/images/bg3.jpg'); }
+    30%  { background-image: url('https://github.com/website03-bro/Cari-Ras-Kucing/blob/638f228cc2fe68bfaaeb6555cb9df448862978a6/images/bg4.jpg'); }
+    40%  { background-image: url('https://github.com/website03-bro/Cari-Ras-Kucing/blob/638f228cc2fe68bfaaeb6555cb9df448862978a6/images/bg5.jpg'); }
+    50%  { background-image: url('https://github.com/website03-bro/Cari-Ras-Kucing/blob/638f228cc2fe68bfaaeb6555cb9df448862978a6/images/bg6.jpg'); }
+    60%  { background-image: url('https://github.com/website03-bro/Cari-Ras-Kucing/blob/638f228cc2fe68bfaaeb6555cb9df448862978a6/images/bg7.jpg'); }
+    70%  { background-image: url('https://github.com/website03-bro/Cari-Ras-Kucing/blob/638f228cc2fe68bfaaeb6555cb9df448862978a6/images/bg8.jpg'); }
+    80%  { background-image: url('https://github.com/website03-bro/Cari-Ras-Kucing/blob/638f228cc2fe68bfaaeb6555cb9df448862978a6/images/bg9.jpg'); }
+    100% { background-image: url('https://github.com/website03-bro/Cari-Ras-Kucing/blob/638f228cc2fe68bfaaeb6555cb9df448862978a6/images/bg10.jpg'); }
+}
 
-    /* Optional: Tambahkan overlay biar teks tetap terbaca */
-    .block-container {
-        background-color: rgba(255, 255, 255, 0.8);
-        padding: 2em;
-        border-radius: 10px;
-    }
+.block-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2em;
+    border-radius: 10px;
+}
     </style>
 """, unsafe_allow_html=True)
 
