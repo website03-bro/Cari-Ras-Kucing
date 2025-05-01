@@ -148,32 +148,22 @@ if uploaded_file:
 
     st.progress(float(confidence))
 
-# ==== Footer ====
-st.markdown(
-    """
-    <hr>
-    <div style='text-align: center; font-size: 14px;'>
-        © 2025 - Klasifikasi Ras Kucing | Made by Boy
-    </div>
-    """,
-    unsafe_allow_html=True
-)
 
 # ==== Galeri Gambar Contoh Dipindah ke Bawah ====
 st.markdown("---")
 st.markdown("### 📸 Contoh Ras Kucing", unsafe_allow_html=True)
 
 img_paths = [
-    "images/American Shorthair.jpg",
+    "images/American ShortHair.jpg",
     "images/Bengal.jpg",
     "images/Bombay.jpg",
     "images/British Shorthair.jpg",
     "images/Himalayan.jpg",
     "images/Maine Coon.jpg",
     "images/Manx.jpg",
-    "images/Persian.jpg",
-    "images/Ragdoll.jpg",
-    "images/Russian Blue.jpg"
+    "images/persia.jpg",
+    "images/ragdoll.jpg",
+    "images/russian blue.jpg"
 ]
 
 st.markdown("<div class='cat-gallery'>", unsafe_allow_html=True)
@@ -187,3 +177,14 @@ for i, img_path in enumerate(img_paths):
             st.warning(f"❌ {CLASS_NAMES[i]}")
             st.text("Gambar tidak ditemukan")
 st.markdown("</div>", unsafe_allow_html=True)
+
+# ==== Footer ====
+st.markdown(
+    """
+    <hr>
+    <div style='text-align: center; font-size: 14px;'>
+        © 2025 - Klasifikasi Ras Kucing | Made by Boy
+    </div>
+    """,
+    unsafe_allow_html=True
+)
