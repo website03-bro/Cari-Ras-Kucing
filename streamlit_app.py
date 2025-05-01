@@ -115,6 +115,11 @@ img_paths = [
     "images/persia.jpg",
     "images/Bombay.jpg",
     "images/Maine Coon.jpg"
+    "images/siamese.jpg"
+    "images/sphynx.jpg"
+    "images/Manx.jpg"
+    "images/ragdoll.jpg"
+    "images/scottish fold.jpg"
 ]
 
 cols = st.columns(5)
