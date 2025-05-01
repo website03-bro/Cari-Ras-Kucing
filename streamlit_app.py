@@ -105,27 +105,32 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ==== Galeri 5 Gambar Ras Kucing ====
+# ==== Galeri Gambar Contoh ====
 st.markdown("---")
 st.markdown("### 📷 Contoh Gambar Ras Kucing")
 
 img_paths = [
-    "images/American ShortHair.jpg",
+    "images/American Shorthair.jpg",
     "images/Bengal.jpg",
-    "images/persia.jpg",
     "images/Bombay.jpg",
-    "images/Maine Coon.jpg"
-    "images/siamese.jpg"
-    "images/sphynx.jpg"
-    "images/Manx.jpg"
-    "images/ragdoll.jpg"
-    "images/scottish fold.jpg"
+    "images/British Shorthair.jpg",
+    "images/Himalayan.jpg",
+    "images/Maine Coon.jpg",
+    "images/Manx.jpg",
+    "images/Persian.jpg",
+    "images/Ragdoll.jpg",
+    "images/Russian Blue.jpg"
 ]
 
 cols = st.columns(5)
 for i, img_path in enumerate(img_paths):
-    with cols[i]:
-        st.image(img_path, use_column_width='always', caption=CLASS_NAMES[i])
+    try:
+        with cols[i % 5]:
+            st.image(img_path, use_container_width=True, caption=CLASS_NAMES[i])
+    except Exception as e:
+        with cols[i % 5]:
+            st.warning(f"❌ {CLASS_NAMES[i]}")
+            st.text("Gambar tidak ditemukan")
 
 # ==== Upload Gambar ====
 st.markdown("---")
