@@ -152,7 +152,7 @@ if uploaded_file:
     # Hasil Prediksi
     st.markdown("---")
     st.markdown(
-        "<h2 style='text-align: center; color: #f4a300;'>Hasil Prediksi 🐾</h2>",
+        "<h2 style='text-align: center; color: #f4a300;'>Hasil Prediksi</h2>",
         unsafe_allow_html=True
     )
 
