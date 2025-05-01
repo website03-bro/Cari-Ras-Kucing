@@ -151,7 +151,7 @@ if uploaded_file:
 
 # ==== Galeri Gambar Contoh Dipindah ke Bawah ====
 st.markdown("---")
-st.markdown("### 📸 Contoh Ras Kucing", unsafe_allow_html=True)
+st.markdown("### Jenis Ras Kucing", unsafe_allow_html=True)
 
 img_paths = [
     "images/American ShortHair.jpg",
