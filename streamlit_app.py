@@ -140,7 +140,7 @@ if uploaded_file:
         f"""
         <div style="background-color: var(--secondary-background-color); padding:20px; border-radius:10px; text-align:center; box-shadow:0px 0px 10px #f4a300;">
             <h3 style="color:#f4a300;">{predicted_class}</h3>
-            <p style="font-size:18px;">Tingkat Kepercayaan: <strong>{confidence*100:.2f}%</strong></p>
+            <p style="font-size:18px;">Tingkat Akurasi: <strong>{confidence*100:.2f}%</strong></p>
         </div>
         """,
         unsafe_allow_html=True
