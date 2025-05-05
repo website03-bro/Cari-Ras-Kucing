@@ -15,7 +15,7 @@ st.set_page_config(
 st.markdown("""
     <style>
     header[data-testid="stHeader"] {
-        background-color: #0000FF !important;
+        background-color: #f4a300 !important;
         box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
     }
 
